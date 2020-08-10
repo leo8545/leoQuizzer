@@ -26,6 +26,18 @@ body {
 			border-color: #ddd;
 		}
 	}
+	#quizzer-questions {
+		.quizzer-q {
+			margin: 10px 0;
+			.q-opts-wrapper {
+				margin-top: 5px;
+				margin-left: 10px;
+			}
+			label {
+				display: block;
+			}
+		}
+	}
 }
 .quizzer-head {
 	text-align: center;
