@@ -1,44 +1,58 @@
 body {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 #wrapper {
-	display: block;
-	margin: 0 auto;
-	max-width: 800px;
+  display: block;
+  margin: 0 auto;
+  max-width: 800px;
+  background-color: #f3f3f3;
 }
 .quizzer-wrapper {
-	font-family: arial, sans-serif;
+  font-family: arial, sans-serif;
+  padding: 15px 0;
 }
 .quizzer-body {
-	#q-submit {
-		text-align: center;
-		margin: 0 auto;
-		display: block;
-		padding: 15px 45px;
-		background-color: #b9a6ff;
-		border: 1px solid #333;
-		border-radius: 8px;
-		font-size: 18px;
-		cursor: pointer;
-		&:hover {
-			background-color: #ddd;
-			border-color: #ddd;
-		}
-	}
-	#quizzer-questions {
-		.quizzer-q {
-			margin: 10px 0;
-			.q-opts-wrapper {
-				margin-top: 5px;
-				margin-left: 10px;
-			}
-			label {
-				display: block;
-			}
-		}
-	}
+  #q-submit {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    padding: 15px 45px;
+    background-color: #b9a6ff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover {
+      background-color: #ddd;
+      border-color: #ddd;
+    }
+  }
+  #quizzer-questions {
+    .quizzer-q {
+      margin: 10px 0;
+      .q-opts-wrapper {
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+      label {
+        display: block;
+      }
+    }
+  }
+  .status {
+    margin-left: 25px;
+    &.error {
+      color: #f00;
+    }
+    &.success {
+      color: #058414;
+    }
+  }
 }
 .quizzer-head {
-	text-align: center;
+  text-align: center;
+  h3 {
+    margin: 0;
+  }
 }
