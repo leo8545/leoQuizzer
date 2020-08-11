@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { forEach } = require("lodash");
+const Stopwatch = require("timer-stopwatch");
 
 // All questions
 const questions = [
@@ -92,7 +92,9 @@ const quizzerWrapper = document.querySelector(".quizzer-wrapper");
 if (quizzerWrapper) {
 	const questionsWrapper = document.querySelector("#quizzer-questions");
 
-	// Markup
+	document.querySelector("#totalQ").textContent = choosenQuestions.length;
+
+	// Markup for questions
 	choosenQuestions.forEach((q, i) => {
 		// Single question wrapper
 		const eListItem = document.createElement("li");
@@ -127,6 +129,24 @@ if (quizzerWrapper) {
 		eListItem.append(eStatement);
 		eListItem.append(eOptionsWrapper);
 		questionsWrapper.append(eListItem);
+	});
+
+	// Timer
+	const eTimer = document.querySelector("#seconds");
+	const timerWrapper = document.querySelector(".timer");
+	var timer = new Stopwatch(10000, { refreshRateMS: 1000 }); // A new countdown timer with 10 seconds
+	timer.start();
+	// Fires every 50ms by default. Change setting the 'refreshRateMS' options
+	timer.onTime(function (time) {
+		eTimer.textContent = Math.ceil(time.ms / 1000) + " sec";
+	});
+	// Fires when the timer is done
+	timer.onDone(function () {
+		timerWrapper.textContent = "Your time is finished.";
+		document.querySelector("#q-submit").click();
+		document.querySelectorAll('input[type="radio"]').forEach((ele) => {
+			ele.setAttribute("disabled", "");
+		});
 	});
 
 	// On submit
@@ -189,15 +209,8 @@ if (quizzerWrapper) {
 			100;
 
 		// Result markup
-		const qBody = document.querySelector(".quizzer-body");
-		const eInfo = document.createElement("div");
-		const resultHtml = `You secured: ${result}%`;
-		eInfo.classList.add("result");
-		eInfo.textContent = resultHtml;
-		if (!qBody.querySelector(".result")) {
-			qBody.prepend(eInfo);
-		} else {
-			qBody.querySelector(".result").textContent = resultHtml;
-		}
+		const eResult = document.querySelector(".result");
+		eResult.style.display = "block";
+		eResult.textContent = `You secured: ${result}%`;
 	});
 }

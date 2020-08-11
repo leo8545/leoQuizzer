@@ -51,8 +51,26 @@ body {
   }
 }
 .quizzer-head {
-  text-align: center;
   h3 {
-    margin: 0;
+    text-align: center;
+    margin: 10px 0;
+  }
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    & > * {
+      flex: 0 0 50%;
+    }
+    .right {
+      text-align: right;
+    }
+  }
+  .result {
+    padding: 10px 0;
+    text-align: center;
+    background-color: khaki;
   }
 }
