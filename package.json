@@ -1,0 +1,24 @@
+{
+	"name": "leo-quizzer",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"dependencies": {
+		"lodash": "^4.17.19",
+		"watchify": "^3.11.1"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"watch": "watchify main.js -o bundle.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/leo8545/leoQuizzer.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/leo8545/leoQuizzer/issues"
+	},
+	"homepage": "https://github.com/leo8545/leoQuizzer#readme"
+}

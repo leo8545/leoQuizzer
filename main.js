@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 // All questions
 const questions = [
 	{
@@ -70,49 +72,16 @@ const questions = [
 		category: "pakistan",
 	},
 ];
-let easyQ = [],
-	medQ = [],
-	hardQ = [],
-	allQ = [],
-	randQ = [];
-questions.forEach((q, i) => {
-	switch (q.level) {
-		case "easy":
-			easyQ.push(i);
-			break;
-		case "medium":
-			medQ.push(i);
-			break;
-		case "hard":
-			hardQ.push(i);
-			break;
-		default:
-			break;
-	}
-});
 
-let i = 0;
-while (i > 1) {
-	allQ.push(easyQ[Math.floor(Math.random() * easyQ.length)]);
-	i++;
-}
-console.log(Math.floor(Math.random() * easyQ.length));
+const easyQ = questions.filter((q, i) => q.level === "easy");
+const mediumQ = questions.filter((q, i) => q.level === "medium");
+const hardQ = questions.filter((q, i) => q.level === "hard");
 
-// Choosen questions
-let choosenQuestions = [];
-for (let i = 0; i < questions.length; i++) {
-	let qIndex = Math.round(Math.random() * (questions.length - 1));
-	if (
-		(questions[qIndex].level === "easy" &&
-			choosenQuestions.filter((cq) => cq.level === "easy").length < 1) ||
-		(questions[qIndex].level === "medium" &&
-			choosenQuestions.filter((cq) => cq.level === "medium").length < 1) ||
-		(questions[qIndex].level === "hard" &&
-			choosenQuestions.filter((cq) => cq.level === "hard").length < 1)
-	) {
-		choosenQuestions.push(questions[qIndex]);
-	}
-}
+let choosenQuestions = [
+	..._.sampleSize(easyQ, 1),
+	..._.sampleSize(mediumQ, 1),
+	..._.sampleSize(hardQ, 1),
+];
 
 // Logic
 const quizzerWrapper = document.querySelector(".quizzer-wrapper");
