@@ -1,5 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const _ = require("lodash");
+const { forEach } = require("lodash");
 
 // All questions
 const questions = [
@@ -36,7 +37,8 @@ const questions = [
 		category: "pakistan",
 	},
 	{
-		statement: "What official name was given to Pakistan in 1956 constitution?",
+		statement:
+			"What official name was given to Pakistan in 1956 constitution?",
 		options: [
 			"United States of Pakistan",
 			"Republic of Pakistan",
@@ -135,20 +137,55 @@ if (quizzerWrapper) {
 		e.preventDefault();
 		let correctOnes = [];
 		for (let i = 0; i < choosenQuestions.length; i++) {
-			let val = "";
-			document.querySelectorAll(`input[name="q-${i}"]`).forEach((field) => {
-				if (field.checked) {
-					val = field.value;
-				}
-			});
-			if (val === choosenQuestions[i].options[choosenQuestions[i].answer]) {
-				correctOnes.push(i);
-			}
+			document
+				.querySelectorAll(`input[name="q-${i}"]`)
+				.forEach((field, index) => {
+					if (field.checked) {
+						if (
+							field.value ===
+							choosenQuestions[i].options[choosenQuestions[i].answer]
+						) {
+							correctOnes.push(i);
+							if (!field.parentNode.querySelector("span.status")) {
+								const eStatus = document.createElement("span");
+								eStatus.classList.add("success", "status");
+								eStatus.textContent = "Correct";
+								document
+									.querySelector(`label[for="q-${i}-opt-${index}"]`)
+									.append(eStatus);
+							} else {
+								field.parentNode
+									.querySelector("span.status")
+									.classList.add("success");
+								field.parentNode.querySelector(
+									"span.status"
+								).textContent = "Correct";
+							}
+						} else {
+							if (!field.parentNode.querySelector("span.status")) {
+								const eStatus = document.createElement("span");
+								eStatus.classList.add("error", "status");
+								eStatus.textContent = "Wrong";
+								document
+									.querySelector(`label[for="q-${i}-opt-${index}"]`)
+									.append(eStatus);
+							} else {
+								field.parentNode
+									.querySelector("span.status")
+									.classList.add("error");
+								field.parentNode.querySelector(
+									"span.status"
+								).textContent = "Wrong";
+							}
+						}
+					}
+				});
 		}
 		result =
 			(100 *
 				Math.round(
-					(correctOnes.length / choosenQuestions.length + Number.EPSILON) * 100
+					(correctOnes.length / choosenQuestions.length + Number.EPSILON) *
+						100
 				)) /
 			100;
 
