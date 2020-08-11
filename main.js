@@ -73,6 +73,8 @@ const questions = [
 	},
 ];
 
+// Filter questions based on their level
+
 const easyQ = questions.filter((q, i) => q.level === "easy");
 const mediumQ = questions.filter((q, i) => q.level === "medium");
 const hardQ = questions.filter((q, i) => q.level === "hard");
@@ -123,5 +125,42 @@ if (quizzerWrapper) {
 		eListItem.append(eStatement);
 		eListItem.append(eOptionsWrapper);
 		questionsWrapper.append(eListItem);
+	});
+
+	// On submit
+	const btn = document.querySelector("#q-submit");
+	let result = 0;
+	btn.addEventListener("click", (e) => {
+		e.preventDefault();
+		let correctOnes = [];
+		for (let i = 0; i < choosenQuestions.length; i++) {
+			let val = "";
+			document.querySelectorAll(`input[name="q-${i}"]`).forEach((field) => {
+				if (field.checked) {
+					val = field.value;
+				}
+			});
+			if (val === choosenQuestions[i].options[choosenQuestions[i].answer]) {
+				correctOnes.push(i);
+			}
+		}
+		result =
+			(100 *
+				Math.round(
+					(correctOnes.length / choosenQuestions.length + Number.EPSILON) * 100
+				)) /
+			100;
+
+		// Result markup
+		const qBody = document.querySelector(".quizzer-body");
+		const eInfo = document.createElement("div");
+		const resultHtml = `You secured: ${result}%`;
+		eInfo.classList.add("result");
+		eInfo.textContent = resultHtml;
+		if (!qBody.querySelector(".result")) {
+			qBody.prepend(eInfo);
+		} else {
+			qBody.querySelector(".result").textContent = resultHtml;
+		}
 	});
 }
