@@ -102,6 +102,54 @@ const questions = [
 		level: "easy",
 		category: "fiverr-wordpress",
 	},
+	{
+		statement:
+			"In WordPress, “Revisions” and “Attachments” post types are stored in wp_posts table.",
+		options: ["True", "False"],
+		answer: 0, // index of options
+		level: "easy",
+		category: "fiverr-wordpress",
+	},
+	{
+		statement:
+			"WP Super Cache is not a static page caching plugin for WordPress.",
+		options: ["True", "False"],
+		answer: 1, // index of options
+		level: "medium",
+		category: "fiverr-wordpress",
+	},
+	{
+		statement: "What is the default value of the SCRIPT_DEBUG constant?",
+		options: ["True", "False"],
+		answer: 1, // index of options
+		level: "medium",
+		category: "fiverr-wordpress",
+	},
+	{
+		statement:
+			"In relation to WordPress site, which of the following options is correct about a sitemap?",
+		options: [
+			"It is an enhancement to your existing URLs that can improve SEO of your website.",
+			"It is a single page listing of all the posts on your website.",
+			"It is a collection of all the visited links on a WordPress website.",
+			"None of the above.",
+		],
+		answer: 1, // index of options
+		level: "hard",
+		category: "fiverr-wordpress",
+	},
+	{
+		statement: "What does the “Error 145” in WordPress indicate?",
+		options: [
+			"It indicates that the cache on your server is full.",
+			"It indicates that a table in your database is corrupted.",
+			"It indicates a missing column in your database.",
+			"None of the above.",
+		],
+		answer: 1, // index of options
+		level: "hard",
+		category: "fiverr-wordpress",
+	},
 ];
 
 // Categories markup & logic
