@@ -135,7 +135,7 @@ if (quizzerWrapper) {
 	// Timer
 	const eTimer = document.querySelector("#seconds");
 	const timerWrapper = document.querySelector(".timer");
-	const numOfSeconds = 10;
+	const numOfSeconds = 30;
 	var timer = new Stopwatch(numOfSeconds * 1000, { refreshRateMS: 1000 }); // A new countdown timer with 10 seconds
 	timer.start();
 	// Fires every 50ms by default. Change setting the 'refreshRateMS' options
