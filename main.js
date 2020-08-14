@@ -134,11 +134,15 @@ if (quizzerWrapper) {
 	// Timer
 	const eTimer = document.querySelector("#seconds");
 	const timerWrapper = document.querySelector(".timer");
-	var timer = new Stopwatch(10000, { refreshRateMS: 1000 }); // A new countdown timer with 10 seconds
+	const numOfSeconds = 10;
+	var timer = new Stopwatch(numOfSeconds * 1000, { refreshRateMS: 1000 }); // A new countdown timer with 10 seconds
 	timer.start();
 	// Fires every 50ms by default. Change setting the 'refreshRateMS' options
 	timer.onTime(function (time) {
-		eTimer.textContent = Math.ceil(time.ms / 1000) + " sec";
+		let sec = Math.ceil(time.ms / 1000);
+		let min = sec > 60 ? Math.floor(sec / 60) : 0;
+		sec = min > 0 ? sec - min * 60 : sec;
+		eTimer.textContent = `${min} m ${sec} s`;
 	});
 	// Fires when the timer is done
 	timer.onDone(function () {
@@ -154,6 +158,7 @@ if (quizzerWrapper) {
 	let result = 0;
 	btn.addEventListener("click", (e) => {
 		e.preventDefault();
+		timer.stop();
 		let correctOnes = [];
 		for (let i = 0; i < choosenQuestions.length; i++) {
 			document
