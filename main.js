@@ -1,6 +1,20 @@
 const _ = require("lodash");
 const Stopwatch = require("timer-stopwatch");
 
+// Data
+
+// All categories
+const categories = [
+	{
+		name: "Pakistan",
+		slug: "pakistan",
+	},
+	{
+		name: "Fiverr WordPress",
+		slug: "fiverr-wordpress",
+	},
+];
+
 // All questions
 const questions = [
 	{
@@ -73,15 +87,65 @@ const questions = [
 		level: "hard",
 		category: "pakistan",
 	},
+	{
+		statement:
+			"Which of the following roles can edit your username in WordPress?",
+		options: [
+			"A user itself",
+			"An administrator",
+			"An editor",
+			"A subscriber",
+			"No one can edit your username",
+		],
+		answer: 4, // index of options
+		level: "easy",
+		category: "fiverr-wordpress",
+	},
 ];
+
+// Categories markup & logic
+
+const categoriesWrapper = document.querySelector("#categories");
+
+categories.forEach((cat) => {
+	const eCat = document.createElement("li");
+	const eCatButton = document.createElement("button");
+	eCatButton.textContent = cat.name;
+	eCatButton.id = cat.slug;
+	eCatButton.classList.add("btn-cat");
+	eCat.append(eCatButton);
+	categoriesWrapper.append(eCat);
+});
+
+const params = new URLSearchParams(location.search);
+document.querySelectorAll(".btn-cat").forEach((btnCat, index, arr) =>
+	btnCat.addEventListener("click", (e) => {
+		e.preventDefault();
+		params.set("cat", btnCat.id);
+		window.history.replaceState(
+			{},
+			"",
+			`${location.pathname}?${params.toString()}`
+		);
+		location.reload();
+	})
+);
+
+let choosenQuestions = [];
+
+const cat = params.get("cat");
+if (cat) {
+	choosenQuestions = questions.filter((q) => q.category === cat);
+	document.querySelector(`button#${cat}`).classList.add("active");
+}
 
 // Filter questions based on their level
 
-const easyQ = questions.filter((q, i) => q.level === "easy");
-const mediumQ = questions.filter((q, i) => q.level === "medium");
-const hardQ = questions.filter((q, i) => q.level === "hard");
+const easyQ = choosenQuestions.filter((q, i) => q.level === "easy");
+const mediumQ = choosenQuestions.filter((q, i) => q.level === "medium");
+const hardQ = choosenQuestions.filter((q, i) => q.level === "hard");
 
-let choosenQuestions = [
+choosenQuestions = [
 	..._.sampleSize(easyQ, 1),
 	..._.sampleSize(mediumQ, 1),
 	..._.sampleSize(hardQ, 1),
@@ -89,7 +153,7 @@ let choosenQuestions = [
 
 // Logic
 const quizzerWrapper = document.querySelector(".quizzer-wrapper");
-if (quizzerWrapper) {
+if (cat && quizzerWrapper) {
 	const questionsWrapper = document.querySelector("#quizzer-questions");
 	const btnRetake = document.querySelector("#q-retake");
 
