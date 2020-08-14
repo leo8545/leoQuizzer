@@ -91,6 +91,7 @@ let choosenQuestions = [
 const quizzerWrapper = document.querySelector(".quizzer-wrapper");
 if (quizzerWrapper) {
 	const questionsWrapper = document.querySelector("#quizzer-questions");
+	const btnRetake = document.querySelector("#q-retake");
 
 	document.querySelector("#totalQ").textContent = choosenQuestions.length;
 
@@ -151,6 +152,7 @@ if (quizzerWrapper) {
 		document.querySelectorAll('input[type="radio"]').forEach((ele) => {
 			ele.setAttribute("disabled", "");
 		});
+		btnRetake.style.display = "block";
 	});
 
 	// On submit
@@ -159,6 +161,11 @@ if (quizzerWrapper) {
 	btn.addEventListener("click", (e) => {
 		e.preventDefault();
 		timer.stop();
+		btn.style.display = "none";
+		btnRetake.style.display = "block";
+		document.querySelectorAll('input[type="radio"]').forEach((ele) => {
+			ele.setAttribute("disabled", "");
+		});
 		let correctOnes = [];
 		for (let i = 0; i < choosenQuestions.length; i++) {
 			document
@@ -217,5 +224,11 @@ if (quizzerWrapper) {
 		const eResult = document.querySelector(".result");
 		eResult.style.display = "block";
 		eResult.textContent = `You secured: ${result}%`;
+	});
+
+	// On retake
+	btnRetake.addEventListener("click", (e) => {
+		e.preventDefault();
+		location.reload();
 	});
 }

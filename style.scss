@@ -13,16 +13,18 @@ body {
   padding: 15px 0;
 }
 .quizzer-body {
-  #q-submit {
+  .btn {
     text-align: center;
-    margin: 0 auto;
+    margin: 10px auto;
     display: block;
     padding: 15px 45px;
-    background-color: #b9a6ff;
     border: 1px solid #333;
     border-radius: 8px;
     font-size: 18px;
     cursor: pointer;
+  }
+  #q-submit {
+    background-color: #b9a6ff;
     &:hover {
       background-color: #ddd;
       border-color: #ddd;
